@@ -1,0 +1,50 @@
+使用指南
+http://www.ansible.com.cn/index.html
+
+1. 打通ssh无秘钥
+2. 配置/etc/ansible/hosts文件（配置节点机器或组）
+
+Ansible  adhoc 基本命令
+ansible <host-pattern> [options]
+-m 模块名称
+-a 模块参数
+ansible all -m ping  ping所有host机器
+ansible test -m ping  ping所有test组的机器
+ansible test -m ping -u abc ping所有test组的机器,并指定远程用户为abc
+ansible test -m ping  --sudo --ask-sudo-pass 以sudo模式ping所有test组的机器
+
+ansible test -m shell -a "touch c.txt"
+ansible test -a “touch a.txt"
+ansible test -a “touch b.txt" --sudo --ask-sudo-pass
+
+ cd /home/developer
+ ls
+-rw-rw-r--  1 developer developer     0  7月 28 14:51 a.txt
+-rw-r--r--  1 root      root          0  7月 28 15:09 b.txt
+
+文件传输
+copy server主机上的文件到node主机中
+ansible test -m copy -a "src=/home/developer/myshell/abc.txt dest=/home/developer/Documents"
+
+使用 file 模块可以做到修改文件的属主和权限,
+$ ansible webservers -m file -a "dest=/srv/foo/a.txt mode=600"
+$ ansible webservers -m file -a "dest=/srv/foo/b.txt mode=600 owner=mdehaan group=mdehaan"
+
+管理安装包
+支持 yum 和apt
+例如
+ansible test -m apt -a "name=dstat" --sudo --ask-sudo-pass
+
+直接使用 git 部署 webapp:
+$ ansible webservers -m git -a "repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD"
+
+管理服务
+ansible webservers -m service -a "name=httpd state=started"
+
+
+ansible -i hosts zabbix-agent -m ping
+ansible-playbook -i hosts zabbix-agent.yml
+
+sudo
+在hosts 里配置 some-host ansible_sudo_pass='foobar'
+ansible zabbix-agent -i hosts -m ping --sudo

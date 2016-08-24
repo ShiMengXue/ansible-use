@@ -1,0 +1,10 @@
+---
+- hosts: test
+  remote_user: developer
+  vars:
+   test: abc
+  tasks:
+   #- name: test var {{ test }}
+   #  shell: touch {{ test }}.txt
+   - name: test create file
+     file: state=touch ab.txt

@@ -1,0 +1,12 @@
+---
+- hosts: test
+  remote_user: developer
+  tasks:
+    - name: test connection dev
+      ping:
+      remote_user: developer
+    - name: test connection why
+      ping:
+      remote_user: why
+    - name: test copy
+      copy: src=abc dest=~

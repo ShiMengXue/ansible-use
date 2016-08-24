@@ -1,0 +1,29 @@
+- name: this is a play of deploy schedule
+  hosts: "{{ hosts }}"
+  #remote_user: developer
+
+  tasks:
+
+  - name: create dir at target ip
+    file: path=/home/developer/workspace/bigdata-schedule-test/iteration-test/ state=directory
+
+  - name: upload dir to target ip
+    copy: src="{{ WORKSPACE }}/src/main/resources/jenkins/iteration-test" dest=/home/developer/workspace/bigdata-schedule-test/
+
+  - name: exec docker-compose command [step1 - cd dir]
+    command: chdir=/home/developer/workspace/bigdata-schedule-test/iteration-test ls
+
+  - name: exec docker-compose command [step2 - remane file]
+    command: chdir=/home/developer/workspace/bigdata-schedule-test/iteration-test  mv "template/config-{{ deployTargetIp }}.yml" config.yml
+
+  - name: exec docker-compose command [ step3 - pull images]
+    command: chdir=/home/developer/workspace/bigdata-schedule-test/iteration-test sh pull-images.sh "{{releaseVersion}}" "{{dockerRegistryIpAndPort}}" "{{releaseFrontImageName}}" "{{releaseBackendImageName}}"
+
+  - name: exec docker-compose command [step4 - stop shedule container]
+    command: chdir=/home/developer/workspace/bigdata-schedule-test/iteration-test docker-compose -f sched-iteration-test-docker-compose.yml stop
+
+  - name: exec docker-compose command [ step5 - rm shedule container]
+    command: chdir=/home/developer/workspace/bigdata-schedule-test/iteration-test docker-compose -f sched-iteration-test-docker-compose.yml rm -f
+
+  - name: exec docker-compose command [step6 - up shedule container]
+    command: chdir=/home/developer/workspace/bigdata-schedule-test/iteration-test docker-compose -f sched-iteration-test-docker-compose.yml up -d
