@@ -1,0 +1,36 @@
+---
+- hosts: env
+  remote_user: developer
+  vars:
+   java_name: jdk1.8.0_45
+   java_folder: /usr/lib/jvm
+   java_alias: java-8-oracle
+  tasks:
+
+   - name: install vim from apt
+     apt: name=vim
+     sudo: yes
+
+   - name: create dir for java8
+     file: path="{{java_folder}}/" state=directory
+     sudo: yes
+
+   - name: install jdk8
+     copy: src=jdk1.8.0_45.tar dest="{{java_folder}}" 
+     sudo: yes
+
+   - name: Untar jdk8 
+     shell: tar -xf "{{java_folder}}"/jdk1.8.0_45.tar -C "{{java_folder}}"
+     sudo: yes
+
+   - name: Create symlink for easier update
+     file: state=link src="{{java_folder}}/{{java_name}}" dest="{{java_folder}}/{{java_alias}}"
+     sudo: yes
+
+   - name: Make Java available for system
+     command: 'update-alternatives --install "/usr/bin/java" "java" "{{java_folder}}/{{java_alias}}/bin/java" 1'
+     sudo: yes
+
+   - name: Make Javac available for system
+     command: 'update-alternatives --install "/usr/bin/javac" "javac" "{{java_folder}}/{{java_alias}}/bin/javac" 1'
+     sudo: yes

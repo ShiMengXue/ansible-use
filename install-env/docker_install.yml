@@ -1,0 +1,29 @@
+---
+- hosts: env
+  remote_user: developer
+  vars:
+  tasks:
+
+   - name: install wget from apt
+     apt: name=wget
+     sudo: yes
+
+   - name: install docker 
+     shell: wget -qO- https://get.docker.com/ | sh
+     sudo: yes
+
+   - name: update docker config
+     file: src=docker dest=/etc/default
+     sudo: yes
+
+   - name: update docker usermod 
+     shell: sudo usermod -aG docker "{{remote_user}}"
+     sudo: yes
+
+   - name: install docker-compose
+     file: src=docker-compose-Linux-x86_64 dest=/usr/local/bin/docker-compose owner="{{remote_user}}" group="{{remote_user}}" mode=0775 
+     sudo: yes
+
+   - name: Make Javac available for system
+     command: reboot
+     sudo: yes

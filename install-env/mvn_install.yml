@@ -1,0 +1,24 @@
+---
+- hosts: zabbix-agent2
+  remote_user: developer
+  tasks:
+
+   # - name: install Maven
+   #   copy: src=apache-maven-3.3.3-bin.tar.gz dest=/usr/share
+   #   sudo: yes
+
+   # - name: Untar Maven 
+   #   shell: tar -zxf /usr/share/apache-maven-3.3.3-bin.tar.gz -C /usr/share
+   #   sudo: yes
+
+   # - name: mv Maven 
+   #   shell: mv /usr/share/apache-maven-3.3.3 /usr/share/maven
+   #   sudo: yes
+
+   - name: Make maven available for system
+     command: 'update-alternatives --install "/usr/bin/mvn" "mvn" "/usr/share/maven/bin/mvn" 1'
+     sudo: yes
+
+   - name: Make maven available for system
+     command: sudo update-alternatives --config mvn
+     sudo: yes

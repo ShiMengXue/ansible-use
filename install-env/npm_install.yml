@@ -1,0 +1,24 @@
+---
+- hosts: env
+  remote_user: developer
+  tasks:
+
+   - name: install node
+     copy: src=node-v4.3.2.tar dest=/usr/share
+     sudo: yes
+
+   - name: Untar node 
+     shell: tar -xf /usr/share/node-v4.3.2.tar -C /usr/share
+     sudo: yes
+
+   - name: mv node 
+     shell: mv /usr/share/v4.3.2 /usr/share/node-v4.3.2
+     sudo: yes
+
+   - name: Make node available for system
+     command: 'update-alternatives --install "/usr/bin/node" "node" "/usr/share/node-v4.3.2/bin/node" 1'
+     sudo: yes
+
+   - name: Make npm available for system
+     command: 'update-alternatives --install "/usr/bin/npm" "npm" "/usr/share/node-v4.3.2/bin/npm" 1'
+     sudo: yes
