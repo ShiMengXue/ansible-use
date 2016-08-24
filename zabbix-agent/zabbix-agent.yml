@@ -1,0 +1,26 @@
+---
+- hosts: zabbix-agent2
+  remote_user: developer
+  vars:
+   test: abc
+  tasks:
+
+   - name: install zabbix-agent from apt
+     apt: name=zabbix-agent
+     sudo: yes
+
+   #- name: wait 5 minusts to install
+   #  pause: minutes=5
+
+   - name: update zabbix_agentd.conf file
+     copy: src=zabbix_agentd.conf dest=/etc/zabbix/
+     sudo: yes
+
+   - name: update zabbix-agent-node-name
+     lineinfile: dest=/etc/zabbix/zabbix_agentd.conf regexp=^Hostname= line=Hostname={{ ansible_eth0.ipv4.address }}
+     #shell: sed -i 's/^Hostname=.*/Hostname=192.168.36.107/' /etc/zabbix/zabbix_agentd.conf
+     sudo: yes
+
+   - name: restart zabbix-agent service
+     service: name=zabbix-agent state=restarted
+     sudo: yes
