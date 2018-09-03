@@ -29,28 +29,6 @@
 ## www[001:006].example.com
 
 [zabbix-agent]
-#192.168.36.111 ansible_ssh_user=developer
-#192.168.36.107 ansible_sudo_pass=abc123~
-#192.168.36.180 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.181 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.182 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.186 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.188 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.190 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.191 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.193 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.194 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.195 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.196 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.197 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.199 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-#192.168.36.201 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.202 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-
-[zabbix-agent2]
-192.168.36.221 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.222 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
-192.168.36.223 ansible_ssh_user=developer ansible_ssh_pass=abc123~ ansible_sudo_pass=abc123~
 
 
 # Ex 3: A collection of database servers in the 'dbservers' group
